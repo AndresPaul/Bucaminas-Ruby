@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <Title>Buscaminas</Title>
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  </head>
+  <style>
+    #tablero{
+      display:grid;
+      grid-template-columns: repeat(8, 32px);
+      grid-template-rows: repeat(8, 32px);
+    }
+  
+    #tablero div {
+      background-color: #BBBBBB;
+      border-left: 2px solid #D3D3D3;
+      border-top: 2px solid #D3D3D3;
+      border-right: 2px solid #A9A9A9;
+      border-bottom: 2px solid #A9A9A9;
+      text-align: center;
+      line-height: 32px;
+      border:#cac7c7 outset;
+    }
+    .casilla{
+      color:#BBBBBB;
+    }
+    #reiniciar{
+      margin-top: 10px;
+      margin-left: 55px;
+    }
+  </style>
+  <script>
+    function select(event,id){
+      if(event.button==0)
+        document.getElementById(id).style.color="black";
+        document.getElementById(id).style.border="#cac7c7 inset";
+      if(event.button==2)
+      {
+        var minas=parseInt(document.getElementById("minRes").innerText,10)-1;
+        document.getElementById("minRes").innerText=minas.toString();
+        document.getElementById(id).innerHTML='<i class = "icon ion-md-flag" > </ i >';
+        document.getElementById(id).style.color="red";
+        document.getElementById(id).style.border="#cac7c7 outset";
+      }
+        
+    }
+    document.oncontextmenu = function(){return false}
+    
+  </script>
+  <body>
+     <%= yield %>
+  </body>
+</html>
