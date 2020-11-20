@@ -5,6 +5,10 @@ para ver el reporte de analisis de codigo:
 https://kleer-la.github.io/template2_6_5/overview.html#
 
 
+### Travis
+https://travis-ci.com/github/AndresPaul/Bucaminas-Ruby
+
+
 ### Para el setup sin docker:
 
 install ruby 2.6.5
