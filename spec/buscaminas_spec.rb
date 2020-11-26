@@ -1,5 +1,5 @@
 require 'tablero.rb'
-
+require 'Matrix'
 
 RSpec.describe Tablero do
     
