@@ -6,7 +6,7 @@ class Tablero
         @columnasTotales=8
         @tablero = Matrix.build(8,8) { 0 }
         @minasReales=10
-        @minasSupuestas=8
+        @minasSupuestas=10
     end
     def menos1MinaSupuesta()
         @minasSupuestas=@minasSupuestas-1
