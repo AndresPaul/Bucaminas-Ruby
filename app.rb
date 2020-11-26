@@ -1,7 +1,7 @@
 require 'sinatra'
 require './config'
 require './lib/tablero'
-#require 'Matrix'
+require 'Matrix'
 
 def initialize()
     @buscaminas=Tablero.new()

@@ -1,4 +1,4 @@
-#require 'Matrix'
+require 'Matrix'
 class Tablero
 
     def initialize ()
