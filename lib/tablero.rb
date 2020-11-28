@@ -5,65 +5,107 @@ require "matrix/lup_decomposition.rb"
 class Tablero
 
     def initialize ()
-        @filasTotales=8
-        @columnasTotales=8
-        @tablero = Matrix.build(8,8) { 0 }
-        @minasReales=10
-        @minasSupuestas=10
+        @filasTotales
+        @columnasTotales
+        @tablero
+        @minas=10
+        @banderas=8
     end
-    def menos1MinaSupuesta()
-        @minasSupuestas=@minasSupuestas-1
+    def crearCasilla()
+        puts @tablero[1,1]
     end
+    def crearTablero(fila,columna)
+        @tablero = Matrix.build(fila,columna) {[0,false]}
+        @filasTotales = fila
+        @columnasTotales = columna
+    end
+    def generarHTMLParaCasilla()
+        casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
+        puts casilla
+    end    
+    def generarHTMLParaTablero()
+        filasDelTablero= @tablero.row_count
+        columnasDelTablero = @tablero.column_count
+        tablero = ''
+        (0..filasDelTablero-1).each do |filaActual|
+            (0..columnasDelTablero-1).each do |columnaActual|
+                if @tablero[filaActual,columnaActual][1] == false 
+                    tablero = tablero + '<div class="casilla">' + @tablero[filaActual,columnaActual][0].to_s + '</div>'
+                else
+                    tablero = tablero + '<div>' + @tablero[filaActual,columnaActual][0].to_s + '</div>'
+                end
+            end
+        end
+        tablero
+    end
+    def abrirCasilla(fila,columna)
+        @tablero[fila,columna][1] = true
+    end
+    def quitarUnaBandera()
+        @banderas=@banderas-1
+    end
+    def mostrarFilasDeTablero()
+        tamañoTablero = @tablero.row_count
+    end 
+    def mostrarColumnasDelTablero()
+        columnasTablero = @tablero.column_count
+    end 
     def getTablero()
         @tablero
     end
-    def getMinasSupuestas()
-        @minasSupuestas
+    def mostrarTablero()
+        puts @tablero
     end
-    def getCasilla(fila, columna)
-        @tablero[fila, columna] 
+    def mostrarBanderas()
+        @banderas
+    end
+    def mostrarUnaCasilla(fila, columna)
+        @tablero[fila, columna]
     end
     def insertarMinas()
-        @tablero[0,4]=100
-        @tablero[1,1]=100 
-        @tablero[1,5]=100
-        @tablero[2,0]=100
-        @tablero[3,0]=100
-        @tablero[3,5]=100
-        @tablero[4,1]=100
-        @tablero[6,7]=100
-        @tablero[7,4]=100
-        @tablero[7,6]=100
+
+        @tablero[0,4]=[100,false]
+        @tablero[1,1]=[100,false] 
+        @tablero[1,5]=[100,false]
+        @tablero[2,0]=[100,false]
+        @tablero[3,0]=[100,false]
+        @tablero[3,5]=[100,false]
+        @tablero[4,1]=[100,false]
+        @tablero[6,7]=[100,false]
+        @tablero[7,4]=[100,false]
+        @tablero[7,6]=[100,false]
     end
-    def getContMinasReales()
+    def contarMinas()
         cont = 0
         (0..7).each do |fila|
             (0..7).each do |columna|
-                if (@tablero[fila,columna]==100)
+                if (@tablero[fila,columna][0]==100)
                     cont = cont + 1
                 end
             end
         end
         cont
     end
-    def insertar1Numero(fila,columna)
+    def contarMinasAlrededor(fila,columna)
         numeroMinasAlrededor = 0
         (fila-1..fila+1).each do |filaActual|
             (columna-1..columna+1).each do |columnaActual|
                 if filaActual>-1 and filaActual<@filasTotales and columnaActual>-1 and columnaActual<@columnasTotales
-                    if @tablero[filaActual,columnaActual] == 100
+                    if @tablero[filaActual,columnaActual][0] == 100
                         numeroMinasAlrededor= numeroMinasAlrededor + 1
                     end
                 end
             end
         end
-        @tablero[fila,columna] = numeroMinasAlrededor
+        if numeroMinasAlrededor > 0
+            @tablero[fila,columna][0] = numeroMinasAlrededor 
+        end
     end
-    def insertarNumerosEnTablero()
+    def insertarNumeroDeMinasAlrededor()
         (0..@filasTotales-1).each do |filaActual|
             (0..@columnasTotales-1).each do |columnaActual|
-                if @tablero[filaActual,columnaActual] != 100
-                    insertar1Numero(filaActual,columnaActual)
+                if @tablero[filaActual,columnaActual][0] != 100
+                    contarMinasAlrededor(filaActual,columnaActual)
                 end
             end
         end

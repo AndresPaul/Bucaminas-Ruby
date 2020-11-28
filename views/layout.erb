@@ -8,10 +8,18 @@
   <style>
     #tablero{
       display:grid;
-      grid-template-columns: repeat(8, 32px);
-      grid-template-rows: repeat(8, 32px);
+      grid-template-columns: repeat(<%=@columnas%> , 32px);
+      grid-template-rows: repeat(<%=@filas%> , 32px);
     }
-  
+    input[type=submit] {
+      background-color: black;
+      color: white;
+      padding: 5px 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
     #tablero div {
       background-color: #BBBBBB;
       border-left: 2px solid #D3D3D3;

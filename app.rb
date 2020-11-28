@@ -5,19 +5,64 @@ require "matrix.rb"
 require "matrix/eigenvalue_decomposition.rb" 
 require "matrix/lup_decomposition.rb"
 
+
 def initialize()
     @buscaminas=Tablero.new()
-    @buscaminas.insertarMinas()
-    @buscaminas.insertarNumerosEnTablero()
-    @x=0
-    
 end
 
 get '/' do
-    @tab = @buscaminas.getTablero()
-    @minRes=@buscaminas.getMinasSupuestas()  
-    erb :tablero
-end    
+    erb :menu
+end   
 
+post '/personalizado' do
+    @filas=params[:filas].to_i
+    @columnas=params[:columnas].to_i
+    @buscaminas.crearTablero(@filas,@columnas)
+    #@tab = @buscaminas.getTablero()
+    #@minRes=@buscaminas.mostrarBanderas()  
+    @tablero=@buscaminas.generarHTMLParaTablero()
+    erb :tablero
+end
+post '/principiante' do
+    @buscaminas.crearTablero(8,8)
+    @filas = @buscaminas.mostrarFilasDeTablero()
+    @columnas = @buscaminas.mostrarColumnasDelTablero()
+    @buscaminas.insertarMinas()
+    @buscaminas.insertarNumeroDeMinasAlrededor()
+    #@tab = @buscaminas.getTablero()
+    #@minRes=@buscaminas.mostrarBanderas()  
+    @tablero=@buscaminas.generarHTMLParaTablero()
+    erb :tablero
+end
+
+post '/intermedio' do
+    @buscaminas.crearTablero(16,16)
+    @filas = @buscaminas.mostrarFilasDeTablero()
+    @columnas = @buscaminas.mostrarColumnasDelTablero()
+    @buscaminas.insertarNumeroDeMinasAlrededor()
+    #@tab = @buscaminas.getTablero()
+    #@minRes=@buscaminas.mostrarBanderas()  
+    @tablero=@buscaminas.generarHTMLParaTablero()
+    erb :tablero
+end
+
+post '/abrirCasilla' do
+    @filas=params[:filas].to_i
+    @columnas=params[:columnas].to_i
+    @buscaminas.abrirCasilla(@filas,@columnas)
+    @filas = @buscaminas.mostrarFilasDeTablero()
+    @columnas = @buscaminas.mostrarColumnasDelTablero()
+    @tablero=@buscaminas.generarHTMLParaTablero()
+    erb :tablero
+end
+post '/marcarCasilla' do
+    @filas=params[:filas].to_i
+    @columnas=params[:columnas].to_i
+    @buscaminas.insertarNumeroDeMinasAlrededor()
+    #@tab = @buscaminas.getTablero()
+    #@minRes=@buscaminas.mostrarBanderas()  
+    @tablero=@buscaminas.generarHTMLParaTablero()
+    erb :tablero
+end
 
 #Test GIT
