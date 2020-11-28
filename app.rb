@@ -5,7 +5,7 @@ require "matrix.rb"
 require "matrix/eigenvalue_decomposition.rb" 
 require "matrix/lup_decomposition.rb"
 
-
+#testtt
 def initialize()
     @buscaminas=Tablero.new()
 end
