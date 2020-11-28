@@ -11,9 +11,6 @@ class Tablero
         @minas=10
         @banderas=8
     end
-    def crearCasilla()
-        puts @tablero[1,1]
-    end
     def crearTablero(fila,columna)
         @tablero = Matrix.build(fila,columna) {[0,false]}
         @filasTotales = fila
@@ -68,18 +65,17 @@ class Tablero
     def mostrarUnaCasilla(fila, columna)
         @tablero[fila, columna]
     end
-    def insertarMinas()
-
-        @tablero[0,4]=[100,false]
-        @tablero[1,1]=[100,false] 
-        @tablero[1,5]=[100,false]
-        @tablero[2,0]=[100,false]
-        @tablero[3,0]=[100,false]
-        @tablero[3,5]=[100,false]
-        @tablero[4,1]=[100,false]
-        @tablero[6,7]=[100,false]
-        @tablero[7,4]=[100,false]
-        @tablero[7,6]=[100,false]
+    def insertarMinas(cantidadDeMinas)
+    
+        (1..cantidadDeMinas).each do |i|
+            random1= rand(@filasTotales)
+            random2 = rand(@columnasTotales)
+            if @tablero[random1,random2][0] != 100
+                @tablero[random1,random2][0] = 100
+            else    
+                i = i - 1
+            end
+        end
     end
     def contarMinas()
         cont = 0
