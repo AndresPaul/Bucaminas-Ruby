@@ -1,4 +1,7 @@
-require 'Matrix'
+require "matrix.rb"
+require "matrix/eigenvalue_decomposition.rb" 
+require "matrix/lup_decomposition.rb"
+
 class Tablero
 
     def initialize ()

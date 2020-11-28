@@ -1,7 +1,9 @@
 require 'sinatra'
 require './config'
 require './lib/tablero'
-require 'Matrix'
+require "matrix.rb"
+require "matrix/eigenvalue_decomposition.rb" 
+require "matrix/lup_decomposition.rb"
 
 def initialize()
     @buscaminas=Tablero.new()
