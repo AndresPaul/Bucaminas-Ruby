@@ -59,7 +59,7 @@ RSpec.describe Tablero do
         @tablero.insertarMinas()
         @tablero.insertarNumeroDeMinasAlrededor()
         @tablero.abrirCasilla(0,0)
-       expect(@tablero.mostrarUnaCasilla(0, 0)).to eq([1,true])
+       expect(@tablero.abrirUnaCasilla(0, 0)).to eq([1,true])
     end
 
     it 'debería mostrar 10 por las 10 minas existentes' do

@@ -40,6 +40,12 @@ class Tablero
     end
     def abrirCasilla(fila,columna)
         @tablero[fila,columna][1] = true
+        if @tablero[fila,columna][0] == 100
+            perderPartida()
+        end
+    end
+    def perderPartida()
+        mensaje = 'Perdiste'
     end
     def quitarUnaBandera()
         @banderas=@banderas-1

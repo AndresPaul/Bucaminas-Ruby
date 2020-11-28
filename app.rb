@@ -49,11 +49,15 @@ end
 post '/abrirCasilla' do
     @filas=params[:filas].to_i
     @columnas=params[:columnas].to_i
-    @buscaminas.abrirCasilla(@filas,@columnas)
+    @mensaje = @buscaminas.abrirCasilla(@filas,@columnas)
     @filas = @buscaminas.mostrarFilasDeTablero()
     @columnas = @buscaminas.mostrarColumnasDelTablero()
     @tablero=@buscaminas.generarHTMLParaTablero()
-    erb :tablero
+    if @mensaje == 'Perdiste'
+        erb :perdiste
+    else
+        erb :tablero
+    end
 end
 post '/marcarCasilla' do
     @filas=params[:filas].to_i
