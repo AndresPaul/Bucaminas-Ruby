@@ -56,6 +56,8 @@ post '/abrirCasilla' do
     @tablero=@buscaminas.generarHTMLParaTablero()
     if @mensaje == 'Perdiste'
         erb :perdiste
+    elsif @mensaje == 'Ganaste'
+        erb :ganar
     else
         erb :tablero
     end
@@ -63,9 +65,9 @@ end
 post '/marcarCasilla' do
     @filas=params[:filas].to_i
     @columnas=params[:columnas].to_i
-    @buscaminas.insertarNumeroDeMinasAlrededor()
-    #@tab = @buscaminas.getTablero()
-    #@minRes=@buscaminas.mostrarBanderas()  
+    @buscaminas.marcarCasilla(@filas,@columnas)
+    @filas = @buscaminas.mostrarFilasDeTablero()
+    @columnas = @buscaminas.mostrarColumnasDelTablero()
     @tablero=@buscaminas.generarHTMLParaTablero()
     erb :tablero
 end

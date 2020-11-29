@@ -5,16 +5,18 @@ require "matrix/lup_decomposition.rb"
 class Tablero
 
     def initialize ()
+        @cantidadDeCasillas
         @filasTotales
         @columnasTotales
         @tablero
-        @minas=10
+        @minas=0
         @banderas=8
     end
     def crearTablero(fila,columna)
         @tablero = Matrix.build(fila,columna) {[0,false]}
         @filasTotales = fila
         @columnasTotales = columna
+        @cantidadDeCasillas = @filasTotales * @columnasTotales
     end
     def generarHTMLParaCasilla()
         casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
@@ -37,12 +39,36 @@ class Tablero
     end
     def abrirCasilla(fila,columna)
         @tablero[fila,columna][1] = true
+        mensaje = " "
         if @tablero[fila,columna][0] == 100
-            perderPartida()
+            mensaje = perderPartida()
         end
+        casillasSinMinas = @cantidadDeCasillas - @minas
+        if contarCasillasVisible() == casillasSinMinas
+            mensaje = ganarPartida()
+        end
+        return mensaje
+    end
+    def contarCasillasVisible()
+        cont = 0 
+        (0..@filasTotales-1).each do |filaActual|
+            (0..@columnasTotales-1).each do |columnaActual|
+                if @tablero[filaActual,columnaActual][1] == true
+                    cont = cont + 1
+                end
+            end
+        end
+        return cont
+    end
+    def marcarCasilla(fila,columna)
+        @tablero[fila,columna][0] = 'B'
+        @tablero[fila,columna][1] = true
     end
     def perderPartida()
         mensaje = 'Perdiste'
+    end
+    def ganarPartida()
+        mensaje = 'Ganaste'
     end
     def quitarUnaBandera()
         @banderas=@banderas-1
@@ -62,6 +88,9 @@ class Tablero
     def mostrarBanderas()
         @banderas
     end
+    def mostrarNumeroDeMinas()
+        @minas
+    end
     def mostrarUnaCasilla(fila, columna)
         @tablero[fila, columna]
     end
@@ -73,20 +102,18 @@ class Tablero
             if @tablero[random1,random2][0] != 100
                 @tablero[random1,random2][0] = 100
             else    
-                i = i - 1
+                cantidadDeMinas = cantidadDeMinas+1
             end
         end
     end
     def contarMinas()
-        cont = 0
         (0..7).each do |fila|
             (0..7).each do |columna|
                 if (@tablero[fila,columna][0]==100)
-                    cont = cont + 1
+                    @minas = @minas + 1
                 end
             end
         end
-        cont
     end
     def contarMinasAlrededor(fila,columna)
         numeroMinasAlrededor = 0

@@ -58,20 +58,21 @@ RSpec.describe Tablero do
     #    @tablero.insertarNumeroDeMinasAlrededor()
     #   expect(@tablero.mostrarUnaCasilla(0, 5)).to eq([2,false])
     #end
-
+    
     it 'debería devolver true ya que abrimos la casilla' do
         @tablero.crearTablero(8,8)
         @tablero.insertarMinas(10)
         @tablero.insertarNumeroDeMinasAlrededor()
         @tablero.abrirCasilla(0,0)
-       expect(@tablero.mostrarUnaCasilla(0, 0)).to eq([1,true])
+       expect(@tablero.mostrarUnaCasilla(0, 0)[1]).to eq(true)
     end
 
-    #it 'debería mostrar 10 por las 10 minas existentes' do
-    #    @tablero.crearTablero(8,8)
-    #    @tablero.insertarMinas(10)
-    #    expect(@tablero.contarMinas()).to eq(10)
-    #end
+    it 'debería mostrar 10 por las 10 minas existentes' do
+        @tablero.crearTablero(8,8)
+        @tablero.insertarMinas(10)
+        @tablero.contarMinas()
+        expect(@tablero.mostrarNumeroDeMinas()).to eq(10)
+    end
     it 'debería devolver 10 minas supuestas que nos quedan' do
         @tablero.crearTablero(8,8)
         @tablero.insertarMinas(10)
@@ -83,5 +84,27 @@ RSpec.describe Tablero do
         @tablero.quitarUnaBandera()
         expect(@tablero.mostrarBanderas()).to eq(6)
     end
-
+    it 'deberia devolver perdiste' do
+        expect(@tablero.perderPartida()).to eq('Perdiste')
+    end
+    it 'deberia devolver perdiste ya que abrio una mina' do
+        @tablero.crearTablero(2,2)
+        @tablero.insertarMinas(4)
+        expect(@tablero.abrirCasilla(0,0)).to eq('Perdiste') 
+    end
+    it 'deberia devolver perdiste ya que abrio una mina' do
+        @tablero.crearTablero(2,2)
+        @tablero.insertarMinas(3)
+        expect(@tablero.abrirCasilla(0,0)).to eq('Perdiste') #esta prueba no siempre pasara debido a que las minas son insertadas aleatoriamente
+    end
+    it 'deberia devolver perdiste' do
+        expect(@tablero.ganarPartida()).to eq('Ganaste')
+    end
+    it 'deberia devolver ganaste ya que abrio todas las minas sin bombas' do
+        @tablero.crearTablero(2,2)
+        @tablero.abrirCasilla(0,0)
+        @tablero.abrirCasilla(0,1)
+        @tablero.abrirCasilla(1,0)
+        expect(@tablero.abrirCasilla(1,1)).to eq('Ganaste') #esta prueba no siempre pasara debido a que las minas son insertadas aleatoriamente
+    end
 end
