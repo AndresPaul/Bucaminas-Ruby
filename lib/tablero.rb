@@ -9,14 +9,16 @@ class Tablero
         @filasTotales
         @columnasTotales
         @tablero
-        @minas=0
-        @banderas=0
+        @minas
+        @banderas
     end
     def crearTablero(fila,columna)
         @tablero = Matrix.build(fila,columna) {[0,false]}
         @filasTotales = fila
         @columnasTotales = columna
         @cantidadDeCasillas = @filasTotales * @columnasTotales
+        @minas=0
+        @banderas=0
     end
     def generarHTMLParaCasilla()
         casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
@@ -109,8 +111,8 @@ class Tablero
         end
     end
     def contarMinas()
-        (0..7).each do |fila|
-            (0..7).each do |columna|
+        (0..@filasTotales-1).each do |fila|
+            (0..@columnasTotales-1).each do |columna|
                 if (@tablero[fila,columna][0]==100)
                     @minas = @minas + 1
                 end
