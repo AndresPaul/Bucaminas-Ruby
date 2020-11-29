@@ -17,7 +17,11 @@ end
 post '/personalizado' do
     @filas=params[:filas].to_i
     @columnas=params[:columnas].to_i
+    @minas=params[:minas].to_i
     @buscaminas.crearTablero(@filas,@columnas)
+    @buscaminas.insertarMinas(@minas)
+    @buscaminas.contarMinas()
+    @banderas=@buscaminas.mostrarBanderas()
     #@tab = @buscaminas.getTablero()
     #@minRes=@buscaminas.mostrarBanderas()  
     @tablero=@buscaminas.generarHTMLParaTablero()
@@ -29,6 +33,8 @@ post '/principiante' do
     @columnas = @buscaminas.mostrarColumnasDelTablero()
     @buscaminas.insertarMinas(10)
     @buscaminas.insertarNumeroDeMinasAlrededor()
+    @buscaminas.contarMinas()
+    @banderas=@buscaminas.mostrarBanderas()
     #@tab = @buscaminas.getTablero()
     #@minRes=@buscaminas.mostrarBanderas()  
     @tablero=@buscaminas.generarHTMLParaTablero()
@@ -41,6 +47,8 @@ post '/intermedio' do
     @columnas = @buscaminas.mostrarColumnasDelTablero()
     @buscaminas.insertarMinas(20)
     @buscaminas.insertarNumeroDeMinasAlrededor()
+    @buscaminas.contarMinas()
+    @banderas=@buscaminas.mostrarBanderas()
     #@tab = @buscaminas.getTablero()
     #@minRes=@buscaminas.mostrarBanderas()  
     @tablero=@buscaminas.generarHTMLParaTablero()
@@ -53,6 +61,7 @@ post '/abrirCasilla' do
     @mensaje = @buscaminas.abrirCasilla(@filas,@columnas)
     @filas = @buscaminas.mostrarFilasDeTablero()
     @columnas = @buscaminas.mostrarColumnasDelTablero()
+    @banderas=@buscaminas.mostrarBanderas()
     @tablero=@buscaminas.generarHTMLParaTablero()
     if @mensaje == 'Perdiste'
         erb :perdiste
@@ -68,6 +77,7 @@ post '/marcarCasilla' do
     @buscaminas.marcarCasilla(@filas,@columnas)
     @filas = @buscaminas.mostrarFilasDeTablero()
     @columnas = @buscaminas.mostrarColumnasDelTablero()
+    @banderas=@buscaminas.mostrarBanderas()
     @tablero=@buscaminas.generarHTMLParaTablero()
     erb :tablero
 end

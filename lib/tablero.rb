@@ -10,7 +10,7 @@ class Tablero
         @columnasTotales
         @tablero
         @minas=0
-        @banderas=8
+        @banderas=0
     end
     def crearTablero(fila,columna)
         @tablero = Matrix.build(fila,columna) {[0,false]}
@@ -61,8 +61,11 @@ class Tablero
         return cont
     end
     def marcarCasilla(fila,columna)
-        @tablero[fila,columna][0] = 'B'
-        @tablero[fila,columna][1] = true
+        if @banderas > 0
+            @tablero[fila,columna][0] = 'B'
+            @tablero[fila,columna][1] = true
+            @banderas = @banderas - 1
+        end
     end
     def perderPartida()
         mensaje = 'Perdiste'
@@ -79,8 +82,8 @@ class Tablero
     def mostrarColumnasDelTablero()
         columnasTablero = @tablero.column_count
     end 
-    def getTablero()
-        @tablero
+    def mostrarBandera()
+        @banderas
     end
     def mostrarTablero()
         puts @tablero
@@ -95,7 +98,6 @@ class Tablero
         @tablero[fila, columna]
     end
     def insertarMinas(cantidadDeMinas)
-    
         (1..cantidadDeMinas).each do |i|
             random1= rand(@filasTotales)
             random2 = rand(@columnasTotales)
@@ -114,6 +116,7 @@ class Tablero
                 end
             end
         end
+        @banderas = @minas
     end
     def contarMinasAlrededor(fila,columna)
         numeroMinasAlrededor = 0
