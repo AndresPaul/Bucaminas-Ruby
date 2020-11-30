@@ -20,10 +20,22 @@ class Tablero
         @minas=0
         @banderas=0
     end
-    def generarHTMLParaCasilla()
-        casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
-        puts casilla
-    end    
+    def insertarMinasEstaticas()
+        @tablero[0,4]=100
+        @tablero[1,1]=100 
+        @tablero[1,5]=100
+        @tablero[2,0]=100
+        @tablero[3,0]=100
+        @tablero[3,5]=100
+        @tablero[4,1]=100
+        @tablero[6,7]=100
+        @tablero[7,4]=100
+        @tablero[7,6]=100
+    end
+    #def generarHTMLParaCasilla()
+    #    casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
+    #    puts casilla
+    #end    
     def generarEncabezadoDeTableroHTML()
         encabezado = ""
         (0..@filasTotales-1).each do |filaActual|
@@ -49,12 +61,11 @@ class Tablero
         tablero
     end
     def abrirCasilla(fila,columna)
-        
         mensaje = " "
         @tablero[fila,columna][1] = true
         
         casillasSinMinas = @cantidadDeCasillas - @minas
-        if contarCasillasVisible() == casillasSinMinas
+        if contarCasillasAbiertas() == casillasSinMinas
             mensaje = 'Ganaste'
         end
         if @tablero[fila,columna][0] == 100
@@ -62,11 +73,11 @@ class Tablero
         end
         return mensaje
     end
-    def contarCasillasVisible()
+    def contarCasillasAbiertas()
         cont = 0 
         (0..@filasTotales-1).each do |filaActual|
             (0..@columnasTotales-1).each do |columnaActual|
-                if @tablero[filaActual,columnaActual][1] == true
+                if @tablero[filaActual,columnaActual][1] == true && @tablero[filaActual,columnaActual][0] != 'B'
                     cont = cont + 1
                 end
             end
@@ -80,27 +91,24 @@ class Tablero
             @banderas = @banderas - 1
         end
     end
-    def mostrarFilasDeTablero()
-        tamañoTablero = @tablero.row_count
+    def mostrarFilasDelTablero()
+        return @filasTotales
     end 
     def mostrarColumnasDelTablero()
-        columnasTablero = @tablero.column_count
+        return @columnasTotales
     end 
-    def mostrarBandera()
-        @banderas
-    end
     def mostrarTablero()
         puts @tablero
     end
-    def mostrarBanderas()
-        @banderas
+    def mostrarNumeroDeBanderas()
+        return @banderas
     end
-    #def mostrarNumeroDeMinas()
-    #    @minas
+    def mostrarNumeroDeMinas()
+        return @minas
+    end
+    #def mostrarUnaCasilla(fila, columna)
+    #    @tablero[fila, columna]
     #end
-    def mostrarUnaCasilla(fila, columna)
-        @tablero[fila, columna]
-    end
     def insertarMinas(cantidadDeMinas)
         i = 0
         while i < cantidadDeMinas do
