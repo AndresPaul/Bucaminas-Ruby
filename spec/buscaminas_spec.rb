@@ -19,9 +19,15 @@ RSpec.describe Tablero do
     #    @tablero.insertarNumeroDeMinasAlrededor()
     #    expect(@tablero.generarHTMLParaUnaCasilla()).to eq('<div class="casilla">1</div>')
     #end
+    it 'deberia devolver 4 ya que hay 4 banderas' do
+        @tablero.crearTablero(2,2)
+        @tablero.insertarMinas(4)
+        @tablero.contarMinas()
+        expect(@tablero.mostrarBanderas()).to eq(4)
+    end
     it 'deberia devolver un string con los atributos para el HTML sin nada dentro' do
         @tablero.crearTablero(1,1)
-        expect(@tablero.generarHTMLParaTablero()).to eq('<div class="casilla">0</div>')
+        expect(@tablero.generarHTMLParaTablero()).to eq('<div class="casilla"> </div>')
     end
     #it 'debería devolver una matriz 1x1' do
     #    @tablero.crearTablero(1,1)
@@ -67,39 +73,45 @@ RSpec.describe Tablero do
        expect(@tablero.mostrarUnaCasilla(0, 0)[1]).to eq(true)
     end
 
-    it 'debería mostrar 10 por las 10 minas existentes' do
-        @tablero.crearTablero(8,8)
-        @tablero.insertarMinas(10)
-        @tablero.contarMinas()
-        expect(@tablero.mostrarNumeroDeMinas()).to eq(10)
-    end
-    it 'debería devolver 10 minas supuestas que nos quedan' do
-        @tablero.crearTablero(8,8)
-        @tablero.insertarMinas(10)
-        expect(@tablero.mostrarBanderas()).to eq(8)
-    end
-    it 'debería devolver 9 minas supuestas que nos quedan' do
-        @tablero.crearTablero(8,8)
-        @tablero.quitarUnaBandera()
-        @tablero.quitarUnaBandera()
-        expect(@tablero.mostrarBanderas()).to eq(6)
-    end
-    it 'deberia devolver perdiste' do
-        expect(@tablero.perderPartida()).to eq('Perdiste')
-    end
+    #it 'debería mostrar 10 por las 10 minas existentes' do
+    #    @tablero.crearTablero(8,8)
+    #    @tablero.insertarMinas(10)
+    #    @tablero.contarMinas()
+    #    expect(@tablero.mostrarNumeroDeMinas()).to eq(10)
+    #end
+    #it 'debería devolver 10 minas supuestas que nos quedan' do
+    #    @tablero.crearTablero(8,8)
+    #    @tablero.insertarMinas(10)
+    #    expect(@tablero.mostrarBanderas()).to eq(8)
+    #end
+    #it 'debería devolver 9 minas supuestas que nos quedan' do
+    #    @tablero.crearTablero(8,8)
+    #    @tablero.quitarUnaBandera()
+    #    @tablero.quitarUnaBandera()
+    #    expect(@tablero.mostrarBanderas()).to eq(6)
+    #end
+    #it 'no deberia devolver nada' do
+    #    expect(@tablero.perderPartida()).to eq(' ')
+    #end
+    #it 'deberia devolver perdiste' do
+    #    expect(@tablero.perderPartida()).to eq('Perdiste')
+    #end
     it 'deberia devolver perdiste ya que abrio una mina' do
         @tablero.crearTablero(2,2)
         @tablero.insertarMinas(4)
         expect(@tablero.abrirCasilla(0,0)).to eq('Perdiste') 
     end
-    it 'deberia devolver perdiste ya que abrio una mina' do
-        @tablero.crearTablero(2,2)
-        @tablero.insertarMinas(3)
-        expect(@tablero.abrirCasilla(0,0)).to eq('Perdiste') #esta prueba no siempre pasara debido a que las minas son insertadas aleatoriamente
-    end
-    it 'deberia devolver perdiste' do
-        expect(@tablero.ganarPartida()).to eq('Ganaste')
-    end
+    #it 'deberia devolver perdiste ya que abrio una mina' do
+    #    @tablero.crearTablero(2,2)
+    #    @tablero.insertarMinas(3)
+    #    expect(@tablero.abrirCasilla(0,0)).to eq('Perdiste') #esta prueba no siempre pasara debido a que las minas son insertadas aleatoriamente
+    #end
+    #it 'no deberia devolver nada' do
+    #    expect(@tablero.ganarPartida()).to eq(' ')
+    #end
+    #it 'deberia devolver ganaste' do
+    #    expect(@tablero.ganarPartida()).to eq('Ganaste')
+    #end
     it 'deberia devolver ganaste ya que abrio todas las minas sin bombas' do
         @tablero.crearTablero(2,2)
         @tablero.abrirCasilla(0,0)

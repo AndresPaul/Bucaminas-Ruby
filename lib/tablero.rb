@@ -13,7 +13,7 @@ class Tablero
         @banderas
     end
     def crearTablero(fila,columna)
-        @tablero = Matrix.build(fila,columna) {[0,false]}
+        @tablero = Matrix.build(fila,columna) {[' ',false]}
         @filasTotales = fila
         @columnasTotales = columna
         @cantidadDeCasillas = @filasTotales * @columnasTotales
@@ -43,11 +43,11 @@ class Tablero
         @tablero[fila,columna][1] = true
         mensaje = " "
         if @tablero[fila,columna][0] == 100
-            mensaje = perderPartida()
+            mensaje = 'Perdiste'
         end
         casillasSinMinas = @cantidadDeCasillas - @minas
         if contarCasillasVisible() == casillasSinMinas
-            mensaje = ganarPartida()
+            mensaje = 'Ganaste'
         end
         return mensaje
     end
@@ -68,15 +68,6 @@ class Tablero
             @tablero[fila,columna][1] = true
             @banderas = @banderas - 1
         end
-    end
-    def perderPartida()
-        mensaje = 'Perdiste'
-    end
-    def ganarPartida()
-        mensaje = 'Ganaste'
-    end
-    def quitarUnaBandera()
-        @banderas=@banderas-1
     end
     def mostrarFilasDeTablero()
         tamañoTablero = @tablero.row_count
@@ -100,13 +91,13 @@ class Tablero
         @tablero[fila, columna]
     end
     def insertarMinas(cantidadDeMinas)
-        (1..cantidadDeMinas).each do |i|
+        i = 0
+        while i < cantidadDeMinas do
             random1= rand(@filasTotales)
             random2 = rand(@columnasTotales)
             if @tablero[random1,random2][0] != 100
                 @tablero[random1,random2][0] = 100
-            else    
-                cantidadDeMinas = cantidadDeMinas+1
+                i +=1    
             end
         end
     end
@@ -131,9 +122,7 @@ class Tablero
                 end
             end
         end
-        if numeroMinasAlrededor > 0
-            @tablero[fila,columna][0] = numeroMinasAlrededor 
-        end
+        @tablero[fila,columna][0] = numeroMinasAlrededor 
     end
     def insertarNumeroDeMinasAlrededor()
         (0..@filasTotales-1).each do |filaActual|

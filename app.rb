@@ -20,6 +20,7 @@ post '/personalizado' do
     @minas=params[:minas].to_i
     @buscaminas.crearTablero(@filas,@columnas)
     @buscaminas.insertarMinas(@minas)
+    @buscaminas.insertarNumeroDeMinasAlrededor()
     @buscaminas.contarMinas()
     @banderas=@buscaminas.mostrarBanderas()
     #@tab = @buscaminas.getTablero()
