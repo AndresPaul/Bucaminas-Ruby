@@ -24,30 +24,41 @@ class Tablero
         casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
         puts casilla
     end    
+    def generarEncabezadoDeTableroHTML()
+        encabezado = ""
+        (0..@filasTotales-1).each do |filaActual|
+            encabezado = encabezado + "<th>" + filaActual.to_s + "</th>"
+        end
+        return encabezado
+    end
     def generarHTMLParaTablero()
-        filasDelTablero= @tablero.row_count
-        columnasDelTablero = @tablero.column_count
-        tablero = ''
-        (0..filasDelTablero-1).each do |filaActual|
-            (0..columnasDelTablero-1).each do |columnaActual|
+       @filasTotales
+       @columnasTotales
+        tablero = generarEncabezadoDeTableroHTML()
+        (0..@filasTotales-1).each do |filaActual|
+            tablero = tablero + "<tr>"
+            (0..@columnasTotales-1).each do |columnaActual|
                 if @tablero[filaActual,columnaActual][1] == false 
-                    tablero = tablero + '<div class="casilla">' + @tablero[filaActual,columnaActual][0].to_s + '</div>'
+                    tablero = tablero + '<td><div class="casilla">' + @tablero[filaActual,columnaActual][0].to_s + '</div></td>'
                 else
-                    tablero = tablero + '<div>' + @tablero[filaActual,columnaActual][0].to_s + '</div>'
+                    tablero = tablero + '<td><div>' + @tablero[filaActual,columnaActual][0].to_s + '</div></td>'
                 end
             end
+            tablero = tablero + "</tr>"
         end
         tablero
     end
     def abrirCasilla(fila,columna)
-        @tablero[fila,columna][1] = true
+        
         mensaje = " "
-        if @tablero[fila,columna][0] == 100
-            mensaje = 'Perdiste'
-        end
+        @tablero[fila,columna][1] = true
+        
         casillasSinMinas = @cantidadDeCasillas - @minas
         if contarCasillasVisible() == casillasSinMinas
             mensaje = 'Ganaste'
+        end
+        if @tablero[fila,columna][0] == 100
+            mensaje = 'Perdiste'
         end
         return mensaje
     end
@@ -84,9 +95,9 @@ class Tablero
     def mostrarBanderas()
         @banderas
     end
-    def mostrarNumeroDeMinas()
-        @minas
-    end
+    #def mostrarNumeroDeMinas()
+    #    @minas
+    #end
     def mostrarUnaCasilla(fila, columna)
         @tablero[fila, columna]
     end

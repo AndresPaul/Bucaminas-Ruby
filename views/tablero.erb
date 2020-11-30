@@ -14,11 +14,14 @@
     <input type = "text" id = "columna"name= "columnas">
     <input type = "submit" value = "marcar Casilla">
 </form>
-<form method="post" action="/">
-  <div id="tablero">
-    <%=@tablero%> 
-  </div>
-</form>
 <form action='/'>
     <input id="reiniciar" type="submit" value="Volver al Menu">
+</form>
+<form method="post" action="/">
+  <div id="tablero">
+    <table>
+      <%=@tablero%> 
+    </table>
+  </div>
+  
 </form>

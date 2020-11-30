@@ -36,6 +36,7 @@ post '/principiante' do
     @buscaminas.insertarNumeroDeMinasAlrededor()
     @buscaminas.contarMinas()
     @banderas=@buscaminas.mostrarBanderas()
+    @encabezado = @buscaminas.generarEncabezadoDeTableroHTML()
     #@tab = @buscaminas.getTablero()
     #@minRes=@buscaminas.mostrarBanderas()  
     @tablero=@buscaminas.generarHTMLParaTablero()

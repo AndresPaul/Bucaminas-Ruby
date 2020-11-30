@@ -25,14 +25,46 @@ RSpec.describe Tablero do
         @tablero.contarMinas()
         expect(@tablero.mostrarBanderas()).to eq(4)
     end
-    it 'deberia devolver un string con los atributos para el HTML sin nada dentro' do
-        @tablero.crearTablero(1,1)
-        expect(@tablero.generarHTMLParaTablero()).to eq('<div class="casilla"> </div>')
-    end
-    #it 'debería devolver una matriz 1x1' do
+    #it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla cerrada' do
     #    @tablero.crearTablero(1,1)
-    #    @tablero.mostrarTablero()
+    #    expect(@tablero.generarHTMLParaTablero()).to eq('<div class="casilla"> </div>')
     #end
+    #it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla abierta' do
+    #    @tablero.crearTablero(1,1)
+    #    @tablero.abrirCasilla(0,0)
+    #    expect(@tablero.generarHTMLParaTablero()).to eq('<div> </div>')
+    #end
+    #it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla cerrada' do
+    #    @tablero.crearTablero(1,1)
+    #    expect(@tablero.generarHTMLParaTablero()).to eq('<td><div class="casilla"> </div></td>')
+    #end
+    #it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla abierta' do
+    #    @tablero.crearTablero(1,1)
+    #    @tablero.abrirCasilla(0,0)
+    #    expect(@tablero.generarHTMLParaTablero()).to eq('<td><div> </div></td>')
+    #end
+    #it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla cerrada' do
+    #    @tablero.crearTablero(1,1)
+    #    expect(@tablero.generarHTMLParaTablero()).to eq('<tr><td><div class="casilla"> </div></td></tr>')
+    #end
+    #it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla abierta' do
+    #    @tablero.crearTablero(1,1)
+    #    @tablero.abrirCasilla(0,0)
+    #    expect(@tablero.generarHTMLParaTablero()).to eq('<tr><td><div> </div></td></tr>')
+    #end
+    it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla cerrada' do
+        @tablero.crearTablero(1,1)
+        expect(@tablero.generarHTMLParaTablero()).to eq('<th>0</th><tr><td><div class="casilla"> </div></td></tr>')
+    end
+    it 'deberia devolver un string con los atributos para el HTML sin nada dentro para una casilla abierta' do
+        @tablero.crearTablero(1,1)
+        @tablero.abrirCasilla(0,0)
+        expect(@tablero.generarHTMLParaTablero()).to eq('<th>0</th><tr><td><div> </div></td></tr>')
+    end
+    it 'debería devolver una matriz 1x1 con ' do
+        @tablero.crearTablero(1,1)
+        @tablero.mostrarTablero()
+    end
     it 'debería devolver una matriz 2x2 vacia' do
         @tablero.crearTablero(2,2)
         @tablero.mostrarTablero()
@@ -45,7 +77,7 @@ RSpec.describe Tablero do
     end
 
     it 'debería devolver 8 por el numero de filas de un tablero 8x8' do
-        @tablero.crearTablero(2,2)
+        @tablero.crearTablero(8,8)
         @tablero.insertarMinas(10)
         @tablero.insertarNumeroDeMinasAlrededor()
         @tablero.mostrarTablero()
@@ -112,11 +144,26 @@ RSpec.describe Tablero do
     #it 'deberia devolver ganaste' do
     #    expect(@tablero.ganarPartida()).to eq('Ganaste')
     #end
+    #it 'deberia devolver ganaste ya que abrio todas las minas sin bombas, esta prueba se realizo con bombas estaticas' do
+    #    @tablero.crearTablero(2,2)
+    #    @tablero.insertarMinas(2)
+    #    @tablero.abrirCasilla(0,0)
+    #    @tablero.abrirCasilla(0,1)
+    #    @tablero.abrirCasilla(1,0)
+    #    expect(@tablero.abrirCasilla(1,1)).to eq('Ganaste') 
+    #end
+     #it 'deberia devolver ganaste ya que abrio todas las minas sin bombas' do
+    #    @tablero.crearTablero(2,2)
+    #    @tablero.insertarMinas(3)
+    #    @tablero.abrirCasilla(0,0)
+    #    expect(@tablero.abrirCasilla(1,1)).to eq('Ganaste') #esta prueba no siempre pasara debido a que las minas son insertadas aleatoriamente
+    #end
     it 'deberia devolver ganaste ya que abrio todas las minas sin bombas' do
         @tablero.crearTablero(2,2)
         @tablero.abrirCasilla(0,0)
         @tablero.abrirCasilla(0,1)
         @tablero.abrirCasilla(1,0)
-        expect(@tablero.abrirCasilla(1,1)).to eq('Ganaste') #esta prueba no siempre pasara debido a que las minas son insertadas aleatoriamente
+        expect(@tablero.abrirCasilla(1,1)).to eq('Ganaste') 
     end
+   
 end

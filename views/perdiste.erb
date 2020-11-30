@@ -1,9 +1,11 @@
 <h1><%=@mensaje%></h1>
+<form action='/'>
+    <input id="reiniciar" type="submit" value="Volver al Menu">
+</form>
 <form method="post" action="/">
   <div id="tablero">
-    <%=@tablero%> 
+    <table>
+      <%=@tablero%> 
+    </table>
   </div>
-</form>
-<form action='/'>
-    <input id="reiniciar" type="submit" value="Volver a Menu">
 </form>
