@@ -20,18 +20,18 @@ class Tablero
         @minas=0
         @banderas=0
     end
-    def insertarMinasEstaticas()
-        @tablero[0,4]=100
-        @tablero[1,1]=100 
-        @tablero[1,5]=100
-        @tablero[2,0]=100
-        @tablero[3,0]=100
-        @tablero[3,5]=100
-        @tablero[4,1]=100
-        @tablero[6,7]=100
-        @tablero[7,4]=100
-        @tablero[7,6]=100
-    end
+    #def insertarMinasEstaticas()
+    #    @tablero[0,4]=100
+    #    @tablero[1,1]=100 
+    #    @tablero[1,5]=100
+    #    @tablero[2,0]=100
+    #    @tablero[3,0]=100
+    #    @tablero[3,5]=100
+    #    @tablero[4,1]=100
+    #    @tablero[6,7]=100
+    #    @tablero[7,4]=100
+    #    @tablero[7,6]=100
+    #end
     #def generarHTMLParaCasilla()
     #    casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
     #    puts casilla
@@ -112,10 +112,10 @@ class Tablero
     def insertarMinas(cantidadDeMinas)
         i = 0
         while i < cantidadDeMinas do
-            random1= rand(@filasTotales)
-            random2 = rand(@columnasTotales)
-            if @tablero[random1,random2][0] != 100
-                @tablero[random1,random2][0] = 100
+            fila= rand(@filasTotales)
+            columna = rand(@columnasTotales)
+            if @tablero[fila,columna][0] != 100
+                @tablero[fila,columna][0] = 100
                 i +=1    
             end
         end
