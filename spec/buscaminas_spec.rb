@@ -15,7 +15,7 @@ RSpec.describe Tablero do
     #end
     #it 'debería devolver una casilla para HTML' do
     #    @tablero.crearTablero(8,8)
-    #    @tablero.insertarNumeroDeMinasAlrededor()
+    #    @tablero.insertarNumeroDeMinasAlrededorDeUnaCasilla()
     #    expect(@tablero.generarHTMLParaCasilla()).to eq('<div class="casilla"> </div>')
     #end
     it 'debería devolver una matriz 1x1 sin datos' do
@@ -29,13 +29,13 @@ RSpec.describe Tablero do
     it 'debería devolver una matriz 2x2' do
         @tablero.crearTablero(2,2)
         @tablero.insertarMinas(2)
-        @tablero.insertarNumeroDeMinasAlrededor()
+        @tablero.insertarNumeroDeMinasAlrededorDeUnaCasilla()
         @tablero.mostrarTablero()
     end
     it 'debería devolver una matriz 8x8' do
         @tablero.crearTablero(8,8)
         @tablero.insertarMinas(10)
-        @tablero.insertarNumeroDeMinasAlrededor()
+        @tablero.insertarNumeroDeMinasAlrededorDeUnaCasilla()
         @tablero.mostrarTablero()
     end
     it 'deberia devoler 0 ya que no hay minas' do
@@ -125,19 +125,19 @@ RSpec.describe Tablero do
     #it 'debería devolver 1 porque solo hay una bomba alrededor de esa casilla' do
     #    @tablero.crearTablero(8,8)
     #    @tablero.insertarMinasEstaticas()
-    #    @tablero.insertarNumeroDeMinasAlrededor()
+    #    @tablero.insertarNumeroDeMinasAlrededorDeUnaCasilla()
     #   expect(@tablero.mostrarUnaCasilla(0, 0)).to eq([1,false])
     #end
     #it 'debería devolver 2 porque hay dos bombas alrededor de esa casilla' do
     #    @tablero.crearTablero(8,8)
     #    @tablero.insertarMinasEstaticas()
-    #    @tablero.insertarNumeroDeMinasAlrededor()
+    #    @tablero.insertarNumeroDeMinasAlrededorDeUnaCasilla()
     #   expect(@tablero.mostrarUnaCasilla(0, 5)).to eq([2,false])
     #end
     #it 'debería devolver true ya que abrimos la casilla' do
     #    @tablero.crearTablero(8,8)
     #    @tablero.insertarMinasEstaticas()
-    #    @tablero.insertarNumeroDeMinasAlrededor()
+    #    @tablero.insertarNumeroDeMinasAlrededorDeUnaCasilla()
     #    @tablero.abrirCasilla(0,0)
     #   expect(@tablero.mostrarUnaCasilla(0, 0)[1]).to eq(true)
     #end

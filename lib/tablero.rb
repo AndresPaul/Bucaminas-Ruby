@@ -21,16 +21,16 @@ class Tablero
         @banderas=0
     end
     #def insertarMinasEstaticas()
-    #    @tablero[0,4]=100
-    #    @tablero[1,1]=100 
-    #    @tablero[1,5]=100
-    #    @tablero[2,0]=100
-    #    @tablero[3,0]=100
-    #    @tablero[3,5]=100
-    #    @tablero[4,1]=100
-    #    @tablero[6,7]=100
-    #    @tablero[7,4]=100
-    #    @tablero[7,6]=100
+    #    @tablero[0,4]=[100,false]
+    #    @tablero[1,1]=[100,false]
+    #    @tablero[1,5]=[100,false]
+    #    @tablero[2,0]=[100,false]
+    #    @tablero[3,0]=[100,false]
+    #    @tablero[3,5]=[100,false]
+    #    @tablero[4,1]=[100,false]
+    #    @tablero[6,7]=[100,false]
+    #    @tablero[7,4]=[100,false]
+    #    @tablero[7,6]=[100,false]
     #end
     #def generarHTMLParaCasilla()
     #    casilla = '<div class="casilla">' + @tablero[1,1][0].to_s + '</div>'
@@ -130,7 +130,7 @@ class Tablero
         end
         @banderas = @minas
     end
-    def contarMinasAlrededor(fila,columna)
+    def contarMinasAlrededorDeUnaCasilla(fila,columna)
         numeroMinasAlrededor = 0
         (fila-1..fila+1).each do |filaActual|
             (columna-1..columna+1).each do |columnaActual|
@@ -143,11 +143,11 @@ class Tablero
         end
         @tablero[fila,columna][0] = numeroMinasAlrededor 
     end
-    def insertarNumeroDeMinasAlrededor()
+    def insertarNumeroDeMinasAlrededorDeUnaCasilla()
         (0..@filasTotales-1).each do |filaActual|
             (0..@columnasTotales-1).each do |columnaActual|
                 if @tablero[filaActual,columnaActual][0] != 100
-                    contarMinasAlrededor(filaActual,columnaActual)
+                    contarMinasAlrededorDeUnaCasilla(filaActual,columnaActual)
                 end
             end
         end
